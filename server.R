@@ -9,7 +9,6 @@
 
 library(shiny)
 library(ggplot2)
-library(xlsx)
 library(DT)
 library(plotly)
 library(RColorBrewer)
@@ -20,7 +19,7 @@ library(openssl)
 shinyServer(function(input, output) {
   
   output$fileInclude <- renderUI({
-    h3("CSV(.csv), TXT(.txt), Excel(.xlsx) dataset.")
+    h3("CSV(.csv), TXT(.txt), dataset.")
   })
   
   readData <- reactive({
@@ -33,8 +32,6 @@ shinyServer(function(input, output) {
       datafile <- read.table(inFile$datapath, header = input$header)
     }else if(length(grep(".csv", inFile, ignore.case = TRUE)) > 0){
       datafile <- read.csv(inFile$datapath,header = input$header, sep=",")
-    }else if(length(grep(".xlsx", inFile, ignore.case = TRUE)) > 0){
-      datafile <- read.xlsx(inFile$datapath, 1)
     }
   })
     
